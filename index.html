@@ -23,7 +23,7 @@
             height: 100vh;
             width: 100%;
             max-width: 450px; 
-            background-color: white;
+            background-color: #F8EAFB; /* Cor de fundo caso falte espaço */
             scroll-snap-type: y mandatory;
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch; 
@@ -42,11 +42,13 @@
         .tela {
             height: 100vh;
             width: 100%;
-            background-size: cover; 
+            /* CORREÇÃO: 'contain' garante que a imagem inteira apareça sem cortar nenhuma letra */
+            background-size: contain; 
             background-position: center; 
             background-repeat: no-repeat;
             scroll-snap-align: start; 
             position: relative;
+            background-color: #F8EAFB; /* Preenche sobras com a cor temática */
         }
 
         /* TELA 1: Topo do convite */
@@ -125,11 +127,12 @@
             height: 100vh;
             background-color: #F8EAFB;
             background-image: url('presentes.png');
-            background-size: cover;
+            background-size: contain;
             background-position: center;
+            background-repeat: no-repeat;
             z-index: 999; 
             flex-direction: column;
-            justify-content: space-between; /* Distribui o título em cima, itens no meio e botão embaixo */
+            justify-content: space-between; 
             align-items: center;
             padding: 30px 20px;
             box-sizing: border-box;
@@ -154,7 +157,7 @@
             gap: 15px;
             width: 100%;
             align-items: center;
-            margin: auto 0; /* Centraliza verticalmente no espaço livre */
+            margin: auto 0; 
         }
 
         /* Caixa de cada item de sugestão */
@@ -201,7 +204,6 @@
             font-size: 16px;
         }
 
-        /* Espaço para a imagem do QR Code que você colocará (qrcode.png) */
         .qrcode-img {
             width: 110px;
             height: 110px;
@@ -279,7 +281,6 @@
             <!-- Opção 3: Pix com QR Code -->
             <div class="bloco-pix">
                 <h3>🎁 Presente via Pix</h3>
-                <!-- Coloque a imagem do QR Code na mesma pasta com o nome qrcode.png -->
                 <img src="qrcode.png" alt="QR Code Pix" class="qrcode-img">
                 <div class="chave-pix">Chave Pix: seu-email@exemplo.com</div>
             </div>
