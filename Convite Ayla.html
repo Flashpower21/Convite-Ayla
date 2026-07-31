@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Convite Ayla Valentina</title>
+    <style>
+        /* Reset geral e centralização no PC */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Arial Rounded MT Bold', 'Nunito', 'Comic Sans MS', sans-serif;
+            background-color: #F8EAFB;
+            overflow: hidden; 
+            display: flex;
+            justify-content: center; 
+        }
+
+        /* Container principal simulando a tela do celular */
+        .container {
+            height: 100vh;
+            width: 100%;
+            max-width: 450px; 
+            background-color: white;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch; 
+            box-shadow: 0 0 15px rgba(0,0,0,0.1); 
+            
+            /* Ocultar barra de rolagem */
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+        }
+
+        .container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Configuração das telas */
+        .tela {
+            height: 100vh;
+            width: 100%;
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            scroll-snap-align: start; 
+            position: relative;
+        }
+
+        /* TELA 1: Topo do convite */
+        .tela-1 {
+            background-image: url('Ayla.png');
+        }
+
+        /* TELA 2: Fundo da segunda página */
+        .tela-2 {
+            background-image: url('fundo.png');
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+            gap: 22px; 
+        }
+
+        /* Estilos dos Botões Interativos */
+        .botao {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 85%; 
+            max-width: 320px;
+            padding: 14px 18px; 
+            text-decoration: none;
+            font-size: 18px; 
+            font-weight: 900; 
+            color: #FFFFFF; 
+            text-shadow: 1px 2px 4px rgba(0,0,0,0.3); 
+            border-radius: 50px; 
+            transition: transform 0.1s ease-in-out;
+            text-align: center;
+            white-space: nowrap; 
+            -webkit-tap-highlight-color: transparent; 
+            box-sizing: border-box; 
+            cursor: pointer;
+        }
+
+        .botao:active {
+            transform: scale(0.95);
+        }
+
+        /* Botão Amarelo - Como Chegar */
+        .botao-mapa {
+            background: linear-gradient(180deg, #FDE274 0%, #F4C042 100%); 
+            border: 3px solid #E5AF2B;
+            box-shadow: inset 0px 4px 0px rgba(255, 255, 255, 0.5), 0 6px 15px rgba(0,0,0,0.15); 
+        }
+
+        /* Botão Azul - Confirmar Presença */
+        .botao-presenca {
+            background: linear-gradient(180deg, #94CEF6 0%, #68A7D8 100%); 
+            border: 3px solid #5896C7;
+            box-shadow: inset 0px 4px 0px rgba(255, 255, 255, 0.5), 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        /* Botão Rosa - Lista de Presentes */
+        .botao-presentes {
+            background: linear-gradient(180deg, #F8A9CD 0%, #E381B1 100%); 
+            border: 3px solid #D16B9E;
+            box-shadow: inset 0px 4px 0px rgba(255, 255, 255, 0.5), 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        /* =========================================
+           TELA POP-UP DE PRESENTES
+           ========================================= */
+        .tela-pop-up {
+            display: none; 
+            position: fixed; 
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%); 
+            width: 100%;
+            max-width: 450px; 
+            height: 100vh;
+            background-color: #F8EAFB;
+            background-image: url('presentes.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 999; 
+            flex-direction: column;
+            justify-content: space-between; /* Distribui o título em cima, itens no meio e botão embaixo */
+            align-items: center;
+            padding: 30px 20px;
+            box-sizing: border-box;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            overflow-y: auto;
+        }
+
+        /* Título Sugestão de Presentes */
+        .titulo-presentes {
+            font-size: 24px;
+            font-weight: 900;
+            color: #D16B9E;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* Bloco de Opções de Presentes */
+        .opcoes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            align-items: center;
+            margin: auto 0; /* Centraliza verticalmente no espaço livre */
+        }
+
+        /* Caixa de cada item de sugestão */
+        .item-sugestao {
+            background: rgba(255, 255, 255, 0.85);
+            border: 2px dashed #E381B1;
+            border-radius: 20px;
+            padding: 12px 20px;
+            width: 90%;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            box-sizing: border-box;
+        }
+
+        .item-sugestao h3 {
+            margin: 0 0 5px 0;
+            color: #7A5230;
+            font-size: 16px;
+        }
+
+        .item-sugestao p {
+            margin: 0;
+            color: #555555;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Estilo específico para o bloco do Pix com QR Code */
+        .bloco-pix {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #94CEF6;
+            border-radius: 20px;
+            padding: 12px;
+            width: 90%;
+            max-width: 320px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .bloco-pix h3 {
+            margin: 0 0 8px 0;
+            color: #3A6B8C;
+            font-size: 16px;
+        }
+
+        /* Espaço para a imagem do QR Code que você colocará (qrcode.png) */
+        .qrcode-img {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            background-color: #FFF;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 5px 0;
+        }
+
+        .chave-pix {
+            font-size: 11px;
+            color: #666;
+            word-break: break-all;
+            margin-top: 5px;
+        }
+
+        /* Botão Voltar */
+        .botao-voltar {
+            background: linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%);
+            border: 3px solid #D0D0D0;
+            color: #777777;
+            text-shadow: none;
+            box-shadow: inset 0px 4px 0px rgba(255, 255, 255, 0.8), 0 6px 15px rgba(0,0,0,0.15);
+            width: 60%;
+            max-width: 250px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- TELA 1: TOPO DO CONVITE -->
+        <div class="tela tela-1"></div>
+
+        <!-- TELA 2: BOTÕES E INTERAÇÕES -->
+        <div class="tela tela-2">
+            <!-- Botão Como Chegar -->
+            <a href="LINK_DO_MAPA" target="_blank" class="botao botao-mapa">
+                Como Chegar
+            </a>
+
+            <!-- Botão Confirmar Presença -->
+            <a href="LINK_DO_WHATSAPP" target="_blank" class="botao botao-presenca">
+                Confirmar Presença
+            </a>
+
+            <!-- Botão Lista de Presentes -->
+            <a href="#" onclick="abrirPresentes(event)" class="botao botao-presentes">
+                Lista de Presentes
+            </a>
+        </div>
+    </div>
+
+    <!-- TELA POP-UP DE PRESENTES -->
+    <div class="tela-pop-up" id="telaPresentes">
+        <!-- TÍTULO NO TOPO -->
+        <div class="titulo-presentes">✨ Sugestão de Presentes ✨</div>
+
+        <!-- SUGESTÕES NO MEIO -->
+        <div class="opcoes-container">
+            <!-- Opção 1: Roupa -->
+            <div class="item-sugestao">
+                <h3>👗 Roupinhas</h3>
+                <p>Tamanho: 1 a 3 meses</p>
+            </div>
+
+            <!-- Opção 2: Calçado -->
+            <div class="item-sugestao">
+                <h3>👟 Calçados</h3>
+                <p>Tamanho: 14 / 15</p>
+            </div>
+
+            <!-- Opção 3: Pix com QR Code -->
+            <div class="bloco-pix">
+                <h3>🎁 Presente via Pix</h3>
+                <!-- Coloque a imagem do QR Code na mesma pasta com o nome qrcode.png -->
+                <img src="qrcode.png" alt="QR Code Pix" class="qrcode-img">
+                <div class="chave-pix">Chave Pix: seu-email@exemplo.com</div>
+            </div>
+        </div>
+
+        <!-- BOTÃO VOLTAR EMBAIXO -->
+        <a href="#" onclick="fecharPresentes(event)" class="botao botao-voltar">
+            ⬅️ Voltar
+        </a>
+    </div>
+
+    <!-- SCRIPT PARA ABRIR E FECHAR A TELA -->
+    <script>
+        function abrirPresentes(event) {
+            event.preventDefault(); 
+            document.getElementById('telaPresentes').style.display = 'flex'; 
+        }
+
+        function fecharPresentes(event) {
+            event.preventDefault(); 
+            document.getElementById('telaPresentes').style.display = 'none'; 
+        }
+    </script>
+
+</body>
+</html>
