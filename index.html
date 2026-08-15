@@ -9,74 +9,42 @@
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
             width: 100%;
             font-family: 'Arial Rounded MT Bold', 'Nunito', 'Comic Sans MS', sans-serif;
             background-color: #F8EAFB;
-            overflow: hidden; 
             display: flex;
             justify-content: center; 
         }
 
-        /* Container principal simulando a tela do celular */
+        /* Container principal simulando a tela do celular com rolagem livre */
         .container {
-            height: 100vh;
-            height: 100dvh; 
             width: 100%;
             max-width: 450px; 
             background-color: #F8EAFB;
-            scroll-snap-type: y mandatory;
-            overflow-y: scroll;
-            -webkit-overflow-scrolling: touch; 
             box-shadow: 0 0 15px rgba(0,0,0,0.1); 
-            
-            /* Ocultar barra de rolagem */
-            -ms-overflow-style: none;  
-            scrollbar-width: none;  
+            display: flex;
+            flex-direction: column;
         }
 
-        .container::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Configuração das telas */
-        .tela {
-            height: 100vh; 
-            height: 100dvh; 
+        /* Seção do Vídeo no Topo (Fora da imagem) */
+        .secao-video {
             width: 100%;
-            background-size: contain; 
-            background-position: center; 
-            background-repeat: no-repeat;
-            scroll-snap-align: start; 
-            position: relative;
-            background-color: #F8EAFB; 
+            background-color: #F8EAFB;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            box-sizing: border-box;
         }
 
-        /* TELA 1: Fundo com a imagem do convite */
-        .tela-1 {
-            background-image: url('Ayla.png');
-        }
-
-        /* Caixa onde o vídeo vai rodar flutuando sobre a imagem */
         .caixa-video {
-            position: absolute; 
-            
-            /* ======================================================== */
-            /* VÍDEO BEM ACIMA (Subi de 12% para 3%) */
-            top: 3%; 
-            /* ======================================================== */
-
-            left: 50%;
-            transform: translateX(-50%); /* Garante que fique bem no centro da tela */
-            
-            width: 75%; 
-            max-width: 300px;
+            width: 85%; 
+            max-width: 360px;
             background-color: #000; 
             border: 4px solid #FFFFFF; 
             border-radius: 15px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2); 
             overflow: hidden; 
-            z-index: 10;
         }
 
         .caixa-video video {
@@ -85,9 +53,24 @@
             object-fit: cover;
         }
 
-        /* TELA 2: Fundo da segunda página */
-        .tela-2 {
+        /* Seção da Imagem do Convite (Ayla.png) */
+        .secao-imagem {
+            width: 100%;
+            aspect-ratio: 9 / 16; /* Mantém a proporção exata da imagem do convite */
+            background-image: url('Ayla.png');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+        }
+
+        /* Seção 2: Botões e Interações */
+        .secao-botoes {
+            width: 100%;
+            aspect-ratio: 9 / 16;
             background-image: url('fundo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center; 
@@ -295,19 +278,21 @@
 
     <div class="container" id="areaPrincipal">
         
-        <!-- TELA 1: FUNDO COM A CAIXA DE VÍDEO SOBREPOSTA -->
-        <div class="tela tela-1">
+        <!-- 1. VÍDEO NO TOPO (FORA DA IMAGEM) -->
+        <div class="secao-video">
             <div class="caixa-video">
                 <video id="videoConvite" autoplay loop muted playsinline>
-                    <!-- AQUI ESTÁ O NOME DO VÍDEO -->
                     <source src="videoconvite.mp4" type="video/mp4">
                     Seu navegador não suporta vídeos.
                 </video>
             </div>
         </div>
 
-        <!-- TELA 2: BOTÕES E INTERAÇÕES -->
-        <div class="tela tela-2">
+        <!-- 2. IMAGEM DO CONVITE INTEIRA LOGO ABAIXO -->
+        <div class="secao-imagem"></div>
+
+        <!-- 3. SEÇÃO DOS BOTÕES -->
+        <div class="secao-botoes">
             <a href="LINK_DO_MAPA" target="_blank" class="botao botao-mapa">
                 Como Chegar
             </a>
@@ -367,16 +352,16 @@
         const btnSom = document.getElementById("btnSom");
 
         function alternarSom(e) {
-            if (e) e.stopPropagation(); // Evita conflito com o clique na tela
+            if (e) e.stopPropagation(); 
             
             if (video.muted) {
-                video.muted = false; // Liga o som
-                btnSom.innerHTML = "🔊"; // Ícone com som
-                btnSom.style.animation = "pulsar 2s infinite"; // Adiciona o efeito visual de pulsar
+                video.muted = false; 
+                btnSom.innerHTML = "🔊"; 
+                btnSom.style.animation = "pulsar 2s infinite"; 
             } else {
-                video.muted = true; // Desliga o som
-                btnSom.innerHTML = "🔇"; // Ícone sem som
-                btnSom.style.animation = "none"; // Para a animação
+                video.muted = true; 
+                btnSom.innerHTML = "🔇"; 
+                btnSom.style.animation = "none"; 
             }
         }
 
