@@ -30,7 +30,7 @@
         .secao-video {
             width: 100%;
             background-color: #000;
-            line-height: 0; /* Remove qualquer espaço em branco indesejado abaixo do vídeo */
+            line-height: 0; 
         }
 
         .secao-video video {
@@ -43,7 +43,7 @@
         /* Seção da Imagem do Convite (Ayla.png) */
         .secao-imagem {
             width: 100%;
-            aspect-ratio: 9 / 16; /* Mantém a proporção exata da imagem do convite */
+            aspect-ratio: 9 / 16; 
             background-image: url('Ayla.png');
             background-size: cover; 
             background-position: center; 
@@ -336,11 +336,15 @@
         const video = document.getElementById("videoConvite");
         const btnSom = document.getElementById("btnSom");
 
-        function alternarSom(e) {
-            if (e) e.stopPropagation(); 
+        function alternarSom(event) {
+            if (event) {
+                event.preventDefault(); // Impede qualquer comportamento padrão indesejado do navegador mobile
+                event.stopPropagation(); // Evita que o clique passe para elementos de trás
+            }
             
             if (video.muted) {
                 video.muted = false; 
+                video.play(); // Garante que o vídeo continue rodando perfeitamente ao ligar o som
                 btnSom.innerHTML = "🔊"; 
                 btnSom.style.animation = "pulsar 2s infinite"; 
             } else {
@@ -353,13 +357,19 @@
         // Liga o som automaticamente no primeiro clique/toque em qualquer lugar da tela
         document.body.addEventListener('click', function() {
             if (video.muted) {
-                alternarSom();
+                video.muted = false;
+                video.play();
+                btnSom.innerHTML = "🔊";
+                btnSom.style.animation = "pulsar 2s infinite";
             }
         }, { once: true });
         
         document.body.addEventListener('touchstart', function() {
             if (video.muted) {
-                alternarSom();
+                video.muted = false;
+                video.play();
+                btnSom.innerHTML = "🔊";
+                btnSom.style.animation = "pulsar 2s infinite";
             }
         }, { once: true });
     </script>
