@@ -20,8 +20,8 @@
 
         /* Container principal simulando a tela do celular */
         .container {
-            height: 100vh; /* Fallback para navegadores antigos */
-            height: 100dvh; /* Altura dinâmica que evita o corte da barra do navegador no celular */
+            height: 100vh;
+            height: 100dvh; 
             width: 100%;
             max-width: 450px; 
             background-color: #F8EAFB;
@@ -41,20 +41,42 @@
 
         /* Configuração das telas */
         .tela {
-            height: 100vh; /* Fallback */
-            height: 100dvh; /* Ajuste exato da tela do celular */
+            height: 100vh; 
+            height: 100dvh; 
             width: 100%;
-            background-size: contain; /* Garante que a imagem inteira apareça sem cortar */
+            background-size: contain; 
             background-position: center; 
             background-repeat: no-repeat;
             scroll-snap-align: start; 
             position: relative;
-            background-color: #F8EAFB; /* Preenche eventuais sobras com a cor temática */
+            background-color: #F8EAFB; 
         }
 
-        /* TELA 1: Topo do convite */
+        /* TELA 1: Mantém o fundo original e prepara o espaço do vídeo */
         .tela-1 {
-            background-image: url('Ayla.png');
+            background-image: url('Ayla.png'); /* Sua imagem de fundo volta pra cá */
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Centraliza */
+            padding-bottom: 25%; /* Empurra a caixa do vídeo um pouco mais para cima na tela */
+        }
+
+        /* Caixa onde o vídeo vai rodar flutuando sobre a imagem */
+        .caixa-video {
+            width: 75%; /* Ocupa 75% da largura da tela do celular */
+            max-width: 300px;
+            background-color: #000; /* Fundo escuro caso o vídeo demore a carregar */
+            border: 4px solid #FFFFFF; /* Borda branca estilosa */
+            border-radius: 15px; /* Bordas arredondadas */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25); /* Sombra para dar destaque */
+            overflow: hidden; /* Faz o vídeo respeitar o formato arredondado da borda */
+            z-index: 10;
+        }
+
+        .caixa-video video {
+            width: 100%;
+            display: block; /* Tira margens em branco indesejadas */
+            object-fit: cover;
         }
 
         /* TELA 2: Fundo da segunda página */
@@ -93,25 +115,52 @@
             transform: scale(0.95);
         }
 
-        /* Botão Amarelo - Como Chegar */
+        /* Botões Específicos */
         .botao-mapa {
             background: linear-gradient(180deg, #FDE274 0%, #F4C042 100%); 
             border: 3px solid #E5AF2B;
             box-shadow: inset 0px 4px 0px rgba(255, 255, 255, 0.5), 0 6px 15px rgba(0,0,0,0.15); 
         }
 
-        /* Botão Azul - Confirmar Presença */
         .botao-presenca {
             background: linear-gradient(180deg, #94CEF6 0%, #68A7D8 100%); 
             border: 3px solid #5896C7;
             box-shadow: inset 0px 4px 0px rgba(255, 255, 255, 0.5), 0 6px 15px rgba(0,0,0,0.15);
         }
 
-        /* Botão Rosa - Lista de Presentes */
         .botao-presentes {
             background: linear-gradient(180deg, #F8A9CD 0%, #E381B1 100%); 
             border: 3px solid #D16B9E;
             box-shadow: inset 0px 4px 0px rgba(255, 255, 255, 0.5), 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        /* =========================================
+           BOTÃO FLUTUANTE DE SOM DO VÍDEO
+           ========================================= */
+        .btn-som {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(180deg, #F8A9CD 0%, #E381B1 100%);
+            border: 2px solid #D16B9E;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @keyframes pulsar {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(227, 129, 177, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(227, 129, 177, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(227, 129, 177, 0); }
         }
 
         /* =========================================
@@ -125,8 +174,8 @@
             transform: translateX(-50%); 
             width: 100%;
             max-width: 450px; 
-            height: 100vh; /* Fallback */
-            height: 100dvh; /* Ajuste para não cortar nada atrás dos menus do celular */
+            height: 100vh;
+            height: 100dvh; 
             background-color: #F8EAFB;
             background-image: url('presentes.png');
             background-size: contain;
@@ -136,13 +185,12 @@
             flex-direction: column;
             justify-content: space-between; 
             align-items: center;
-            padding: 30px 20px 40px 20px; /* Adicionado um pouco de margem em baixo para não colar no rodapé */
+            padding: 30px 20px 40px 20px; 
             box-sizing: border-box;
             box-shadow: 0 0 20px rgba(0,0,0,0.3);
             overflow-y: auto;
         }
 
-        /* Título Sugestão de Presentes */
         .titulo-presentes {
             font-size: 24px;
             font-weight: 900;
@@ -152,7 +200,6 @@
             margin-top: 15px;
         }
 
-        /* Bloco de Opções de Presentes */
         .opcoes-container {
             display: flex;
             flex-direction: column;
@@ -162,7 +209,6 @@
             margin: auto 0; 
         }
 
-        /* Caixa de cada item de sugestão */
         .item-sugestao {
             background: rgba(255, 255, 255, 0.85);
             border: 2px dashed #E381B1;
@@ -188,7 +234,6 @@
             font-weight: bold;
         }
 
-        /* Estilo específico para o bloco do Pix com QR Code */
         .bloco-pix {
             background: rgba(255, 255, 255, 0.9);
             border: 2px solid #94CEF6;
@@ -223,7 +268,6 @@
             margin-top: 5px;
         }
 
-        /* Botão Voltar */
         .botao-voltar {
             background: linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%);
             border: 3px solid #D0D0D0;
@@ -238,23 +282,34 @@
 </head>
 <body>
 
-    <div class="container">
-        <!-- TELA 1: TOPO DO CONVITE -->
-        <div class="tela tela-1"></div>
+    <!-- BOTÃO FLUTUANTE DE SOM -->
+    <div class="btn-som" id="btnSom" onclick="alternarSom()">
+        🔇
+    </div>
+
+    <div class="container" id="areaPrincipal">
+        
+        <!-- TELA 1: FUNDO COM A CAIXA DE VÍDEO SOBREPOSTA -->
+        <div class="tela tela-1">
+            <div class="caixa-video">
+                <!-- autoplay = toca sozinho | loop = repete | muted = sem som (exigência do celular) | playsinline = não abre em tela cheia no iOS -->
+                <video id="videoConvite" autoplay loop muted playsinline>
+                    <source src="video.mp4" type="video/mp4">
+                    Seu navegador não suporta vídeos.
+                </video>
+            </div>
+        </div>
 
         <!-- TELA 2: BOTÕES E INTERAÇÕES -->
         <div class="tela tela-2">
-            <!-- Botão Como Chegar -->
             <a href="LINK_DO_MAPA" target="_blank" class="botao botao-mapa">
                 Como Chegar
             </a>
 
-            <!-- Botão Confirmar Presença -->
             <a href="LINK_DO_WHATSAPP" target="_blank" class="botao botao-presenca">
                 Confirmar Presença
             </a>
 
-            <!-- Botão Lista de Presentes -->
             <a href="#" onclick="abrirPresentes(event)" class="botao-presentes botao">
                 Lista de Presentes
             </a>
@@ -263,24 +318,19 @@
 
     <!-- TELA POP-UP DE PRESENTES -->
     <div class="tela-pop-up" id="telaPresentes">
-        <!-- TÍTULO NO TOPO -->
         <div class="titulo-presentes">✨ Sugestão de Presentes ✨</div>
 
-        <!-- SUGESTÕES NO MEIO -->
         <div class="opcoes-container">
-            <!-- Opção 1: Roupa -->
             <div class="item-sugestao">
                 <h3>👗 Roupinhas</h3>
                 <p>Tamanho: 1 a 3 meses</p>
             </div>
 
-            <!-- Opção 2: Calçado -->
             <div class="item-sugestao">
                 <h3>👟 Calçados</h3>
                 <p>Tamanho: 14 / 15</p>
             </div>
 
-            <!-- Opção 3: Pix com QR Code -->
             <div class="bloco-pix">
                 <h3>🎁 Presente via Pix</h3>
                 <img src="qrcode.png" alt="QR Code Pix" class="qrcode-img">
@@ -288,14 +338,14 @@
             </div>
         </div>
 
-        <!-- BOTÃO VOLTAR EMBAIXO -->
         <a href="#" onclick="fecharPresentes(event)" class="botao botao-voltar">
             ⬅️ Voltar
         </a>
     </div>
 
-    <!-- SCRIPT PARA ABRIR E FECHAR A TELA -->
+    <!-- SCRIPTS -->
     <script>
+        // Lógica de presentes
         function abrirPresentes(event) {
             event.preventDefault(); 
             document.getElementById('telaPresentes').style.display = 'flex'; 
@@ -304,6 +354,22 @@
         function fecharPresentes(event) {
             event.preventDefault(); 
             document.getElementById('telaPresentes').style.display = 'none'; 
+        }
+
+        // Lógica do Som do Vídeo
+        const video = document.getElementById("videoConvite");
+        const btnSom = document.getElementById("btnSom");
+
+        function alternarSom() {
+            if (video.muted) {
+                video.muted = false; // Liga o som
+                btnSom.innerHTML = "🔊"; // Ícone com som
+                btnSom.style.animation = "pulsar 2s infinite"; // Adiciona o efeito visual de pulsar
+            } else {
+                video.muted = true; // Desliga o som
+                btnSom.innerHTML = "🔇"; // Ícone sem som
+                btnSom.style.animation = "none"; // Para a animação
+            }
         }
     </script>
 
