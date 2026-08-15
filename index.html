@@ -59,13 +59,11 @@
 
         /* Caixa onde o vídeo vai rodar flutuando sobre a imagem */
         .caixa-video {
-            position: absolute; /* Permite posicionar exatamente onde queremos */
+            position: absolute; 
             
             /* ======================================================== */
-            /* AJUSTE AQUI A ALTURA DO VÍDEO! */
-            /* Diminua o valor (ex: 5%) para subir mais. */
-            /* Aumente o valor (ex: 20%) para descer mais. */
-            top: 12%; 
+            /* VÍDEO BEM ACIMA (Subi de 12% para 3%) */
+            top: 3%; 
             /* ======================================================== */
 
             left: 50%;
@@ -291,7 +289,7 @@
 <body>
 
     <!-- BOTÃO FLUTUANTE DE SOM -->
-    <div class="btn-som" id="btnSom" onclick="alternarSom()">
+    <div class="btn-som" id="btnSom" onclick="alternarSom(event)">
         🔇
     </div>
 
@@ -301,7 +299,7 @@
         <div class="tela tela-1">
             <div class="caixa-video">
                 <video id="videoConvite" autoplay loop muted playsinline>
-                    <!-- AQUI ESTÁ O NOME ATUALIZADO DO VÍDEO -->
+                    <!-- AQUI ESTÁ O NOME DO VÍDEO -->
                     <source src="videoconvite.mp4" type="video/mp4">
                     Seu navegador não suporta vídeos.
                 </video>
@@ -368,7 +366,9 @@
         const video = document.getElementById("videoConvite");
         const btnSom = document.getElementById("btnSom");
 
-        function alternarSom() {
+        function alternarSom(e) {
+            if (e) e.stopPropagation(); // Evita conflito com o clique na tela
+            
             if (video.muted) {
                 video.muted = false; // Liga o som
                 btnSom.innerHTML = "🔊"; // Ícone com som
@@ -379,6 +379,19 @@
                 btnSom.style.animation = "none"; // Para a animação
             }
         }
+
+        // Liga o som automaticamente no primeiro clique/toque em qualquer lugar da tela
+        document.body.addEventListener('click', function() {
+            if (video.muted) {
+                alternarSom();
+            }
+        }, { once: true });
+        
+        document.body.addEventListener('touchstart', function() {
+            if (video.muted) {
+                alternarSom();
+            }
+        }, { once: true });
     </script>
 
 </body>
