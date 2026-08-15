@@ -52,30 +52,38 @@
             background-color: #F8EAFB; 
         }
 
-        /* TELA 1: Mantém o fundo original e prepara o espaço do vídeo */
+        /* TELA 1: Fundo com a imagem do convite */
         .tela-1 {
-            background-image: url('Ayla.png'); /* Sua imagem de fundo volta pra cá */
-            display: flex;
-            justify-content: center;
-            align-items: center; /* Centraliza */
-            padding-bottom: 25%; /* Empurra a caixa do vídeo um pouco mais para cima na tela */
+            background-image: url('Ayla.png');
         }
 
         /* Caixa onde o vídeo vai rodar flutuando sobre a imagem */
         .caixa-video {
-            width: 75%; /* Ocupa 75% da largura da tela do celular */
+            position: absolute; /* Permite posicionar exatamente onde queremos */
+            
+            /* ======================================================== */
+            /* AJUSTE AQUI A ALTURA DO VÍDEO! */
+            /* Diminua o valor (ex: 5%) para subir mais. */
+            /* Aumente o valor (ex: 20%) para descer mais. */
+            top: 12%; 
+            /* ======================================================== */
+
+            left: 50%;
+            transform: translateX(-50%); /* Garante que fique bem no centro da tela */
+            
+            width: 75%; 
             max-width: 300px;
-            background-color: #000; /* Fundo escuro caso o vídeo demore a carregar */
-            border: 4px solid #FFFFFF; /* Borda branca estilosa */
-            border-radius: 15px; /* Bordas arredondadas */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25); /* Sombra para dar destaque */
-            overflow: hidden; /* Faz o vídeo respeitar o formato arredondado da borda */
+            background-color: #000; 
+            border: 4px solid #FFFFFF; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25); 
+            overflow: hidden; 
             z-index: 10;
         }
 
         .caixa-video video {
             width: 100%;
-            display: block; /* Tira margens em branco indesejadas */
+            display: block; 
             object-fit: cover;
         }
 
@@ -292,9 +300,9 @@
         <!-- TELA 1: FUNDO COM A CAIXA DE VÍDEO SOBREPOSTA -->
         <div class="tela tela-1">
             <div class="caixa-video">
-                <!-- autoplay = toca sozinho | loop = repete | muted = sem som (exigência do celular) | playsinline = não abre em tela cheia no iOS -->
                 <video id="videoConvite" autoplay loop muted playsinline>
-                    <source src="video.mp4" type="video/mp4">
+                    <!-- AQUI ESTÁ O NOME ATUALIZADO DO VÍDEO -->
+                    <source src="videoconvite.mp4" type="video/mp4">
                     Seu navegador não suporta vídeos.
                 </video>
             </div>
