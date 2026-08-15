@@ -20,10 +20,11 @@
 
         /* Container principal simulando a tela do celular */
         .container {
-            height: 100vh;
+            height: 100vh; /* Fallback para navegadores antigos */
+            height: 100dvh; /* Altura dinâmica que evita o corte da barra do navegador no celular */
             width: 100%;
             max-width: 450px; 
-            background-color: #F8EAFB; /* Cor de fundo caso falte espaço */
+            background-color: #F8EAFB;
             scroll-snap-type: y mandatory;
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch; 
@@ -40,15 +41,15 @@
 
         /* Configuração das telas */
         .tela {
-            height: 100vh;
+            height: 100vh; /* Fallback */
+            height: 100dvh; /* Ajuste exato da tela do celular */
             width: 100%;
-            /* CORREÇÃO: 'contain' garante que a imagem inteira apareça sem cortar nenhuma letra */
-            background-size: contain; 
+            background-size: contain; /* Garante que a imagem inteira apareça sem cortar */
             background-position: center; 
             background-repeat: no-repeat;
             scroll-snap-align: start; 
             position: relative;
-            background-color: #F8EAFB; /* Preenche sobras com a cor temática */
+            background-color: #F8EAFB; /* Preenche eventuais sobras com a cor temática */
         }
 
         /* TELA 1: Topo do convite */
@@ -124,7 +125,8 @@
             transform: translateX(-50%); 
             width: 100%;
             max-width: 450px; 
-            height: 100vh;
+            height: 100vh; /* Fallback */
+            height: 100dvh; /* Ajuste para não cortar nada atrás dos menus do celular */
             background-color: #F8EAFB;
             background-image: url('presentes.png');
             background-size: contain;
@@ -134,7 +136,7 @@
             flex-direction: column;
             justify-content: space-between; 
             align-items: center;
-            padding: 30px 20px;
+            padding: 30px 20px 40px 20px; /* Adicionado um pouco de margem em baixo para não colar no rodapé */
             box-sizing: border-box;
             box-shadow: 0 0 20px rgba(0,0,0,0.3);
             overflow-y: auto;
@@ -253,7 +255,7 @@
             </a>
 
             <!-- Botão Lista de Presentes -->
-            <a href="#" onclick="abrirPresentes(event)" class="botao botao-presentes">
+            <a href="#" onclick="abrirPresentes(event)" class="botao-presentes botao">
                 Lista de Presentes
             </a>
         </div>
